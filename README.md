@@ -35,8 +35,10 @@ Main colors and generated gradients keep separate provenance. A source with fewe
 2. Upload a PDF, PNG, JPG or WebP, or paste a screenshot with **Ctrl+V / Cmd+V**. You can also start with 2–8 HEX colors or try the clearly labeled original sample.
 3. For a PDF, the app initially checks the first six pages and selects the page with the largest retained colored sample. Choose any available page if your figure is elsewhere.
 4. Drag over the preview to isolate a figure. Select the requested number of main colors, optionally include neutrals, then click **Extract colors**.
-5. Edit a main swatch or HEX value. Tints, shades, gradients, previews and downloads update together.
-6. Download the complete kit or an individual PowerPoint, Origin, color-card or CSV export.
+5. Edit a main swatch or HEX value. Switch between **Main colors**, **Gradients**, **Figure preview** and **Downloads**. Tints, shades, previews and all exports share the live edited palette.
+6. Download the complete kit, or choose an individual export from the **Downloads** tab, grouped by PowerPoint, Origin and color cards/values.
+
+The result tabs support arrow keys and Home/End. See the [UI review and screenshots](web/UI-REVIEW.md) for the current interface and tested workflow.
 
 **Privacy:** the application processes file bytes in the visitor's browser; it does not post papers, images or screenshots to a server. App assets are fetched from the static host. Hosting providers can receive ordinary page and asset requests. There is no application account, document storage or model service.
 

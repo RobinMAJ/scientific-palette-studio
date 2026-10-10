@@ -1,9 +1,28 @@
-# Scientific Palette Studio
+# Scientific Palette Studio — UI direction
 
-A working scientific color bench: put the source figure beside its extraction controls, then show the editable palette and its downloads. Start with an upload or a deliberately labeled original sample, rather than displaying a fabricated extraction.
+A researcher's working color desk: turn a reference figure into editable colors, continuous scales and files for existing tools. The reference and extracted colors carry the identity.
 
-Use a cool paper background, ink typography, restrained blue controls and the actual extracted colors as the visual focus. Trebuchet headings and compact monospace color values keep the tool legible. No decorative gradients: every gradient represents an exportable color scale.
+## Tokens
 
-The workflow is upload/paste, select a PDF page or crop, extract, edit, preview, download. Support mouse, keyboard and touch; stack controls on narrow screens. Keep provenance and derived colors visible. Files and extraction stay in the browser; PDF.js assets are hosted with the app.
+- Graphite `#292D3E` for text.
+- Slate `#626979` for supporting instructions.
+- Paper `#F4F5F8` for the workspace surround.
+- Violet `#6250B8` for actions and selected tabs.
+- Lilac `#EFEDF8` for interactive context.
+- Evergreen `#416D59` for readiness and local-processing reassurance.
 
-Acceptance: image and PDF ingestion, crop coordinates, source-color extraction, tonal/sequential/diverging scales, editing propagation, PowerPoint OOXML and JASC-PAL downloads, mobile layout, and anonymous public access. Origin native import is documented and is not claimed as runtime-tested.
+Avenir Next, where installed, followed by Segoe UI and a system sans-serif fallback. Restrained heading weight, deliberate spacing, explicit HEX/RGB values and quiet supporting text. No external font request is required.
+
+## Layout and design review
+
+The source controls sit beside the reference canvas. Results occupy one workspace with four tabs: Main colors, Gradients, Figure preview and Downloads. One complete-kit action sits beside the palette title; individual exports are grouped by PowerPoint, Origin, and color cards/values.
+
+The original page placed eight competing actions in a single row and required scrolling through every result section. The revised hierarchy gives main colors visual weight, keeps gradients easy to find, and makes advanced readability checks optional. Violet identifies interface actions while source colors remain unchanged. Gradients represent exportable scales rather than decoration.
+
+The empty-state plot reuses the original site's illustration, explicitly labeled as an example. The three numbered usage steps describe the actual sequence. All content stays in English.
+
+## Interaction
+
+Tabs support click, arrow keys, Home/End, visible focus, selected state and linked panels. New sources start at main colors; editing preserves the current panel. All tabs share the live palette. Continuous scales support keyboard activation; a skip link reaches the workspace. Narrow screens stack reference controls and canvas, use two/three-column swatches, and stack export destinations.
+
+Acceptance checks cover source ingestion, cropping, source-exact fixture colors, edit propagation, tabs, native Office/PAL packages, mobile reflow and public deployment. Full accessibility certification and native Origin/PowerPoint application acceptance are not claimed.

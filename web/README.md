@@ -26,10 +26,17 @@ For public hosting, serve the contents of `dist/` over HTTPS with a static host.
 
 An internal hosting identity/manifest is deliberately excluded. To deploy another Sites instance or provider, configure your own site identity and set the publish directory to `web/dist` (or `dist` from this folder).
 
+## Workspace
+
+After extraction, switch between **Main colors**, **Gradients**, **Figure preview** and **Downloads**. Each panel uses the same live palette. Arrow keys and Home/End navigate the result tabs. The complete-kit action stays beside the palette title; individual files and instructions are grouped by their destination tool.
+
+See [the UI review](UI-REVIEW.md) for screenshots and current browser checks.
+
 ## Source modules
 
 | File | Responsibility |
 | --- | --- |
+| `dist/assets/workspace-ui.js` | Keyboard-accessible result tabs, scale activation and live summaries |
 | `dist/assets/site.js` | Local file ingestion, page selection, crop controls, clipboard paste and downloads |
 | `dist/assets/extract.mjs` | Bounded Oklab clustering and observed source-color representatives |
 | `dist/assets/extract-worker.mjs` | Background extraction worker |

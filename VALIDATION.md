@@ -1,3 +1,13 @@
+## Web interface update — v1.1.0
+
+The redesigned public web interface was checked in the current browser run: PNG/PDF ingestion, automatic PDF page selection, a two-color crop, live HEX edits, ArrowRight/End tab navigation, grayscale preview retaining the panel, and complete-kit downloads. The existing 11 Node checks passed; the new presentation script passed syntax checking.
+
+An edited browser kit passed ZIP CRC checks, PNG decoding and parsing of 48 native XML/relationship parts. Both Office theme accents, the first tonal midpoint and the Origin categorical PAL reflected `#AA3344`. Requested mobile/tablet widths of 375 and 820 pixels had equal document client/scroll widths (360/360 and 805/805 including scrollbar behavior). No browser console errors/warnings were observed during the tested image/PDF pipeline.
+
+See [ordered screenshots and UI review](web/UI-REVIEW.md). The extraction/math/export engines and local CLI were unchanged. Native application acceptance, full accessibility compliance and a new clipboard test are not claimed.
+
+---
+
 # Validation status — public release v1.0.0
 
 This release combines the local Skill/CLI with the browser-local web implementation. Validation covers technical behavior and export contents; it does not certify scientific figure readability or native application compatibility on every platform.
