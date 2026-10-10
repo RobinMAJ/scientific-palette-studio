@@ -1,0 +1,10 @@
+.venv/
+.build/
+__pycache__/
+*.py[cod]
+.DS_Store
+node_modules/
+.openai/
+*.env
+.env*
+*.log

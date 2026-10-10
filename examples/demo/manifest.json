@@ -1,0 +1,31 @@
+{
+  "generator": "1.0.0",
+  "files": {
+    "HOW-TO-USE.md": "a11e26cad53dc719cba212e2b536af4c1d93550e4518f023eb909a5626138718",
+    "audit.json": "756a5c37856ecad78873f0d147a1001a21c39465c6a14f04f864aa302d8031f0",
+    "color-card.png": "25ea4ac7427639e4a8e788b64307cb537d18939598174b820aa379cf0d8a4395",
+    "colors.csv": "7d8814af561173441641f6e8873bcd985c01e98ef8a55ee1383746b936b15e0d",
+    "gradients/diverging.svg": "ce54b99ebc0290f42e2995e1f8f0e72ea1d246545351e343a399b4c80fc75226",
+    "gradients/sequential-multihue.svg": "b2b5899afdae16177525ebd699bb2af1f4822865da5ac0a3744839f7ea7bb941",
+    "gradients/tonal-01.svg": "fbc0cb32e33a973bd9df834e9c66572bfaeb29b09eaaabf70f183c71e0dbba7a",
+    "gradients/tonal-02.svg": "fbb24a4333ee3733ca806406a7e9600d4fbf81fb9ece920432bea04112be5b45",
+    "gradients/tonal-03.svg": "af4a88d500dd21278f8cb25040856ca5d808c56a5d8892a00cb4acc880edca8f",
+    "gradients/tonal-04.svg": "e05198315c70d605f20b02d7f6f3a6a8a2f63e8e3fa6ff019cb9caf7c8266e3c",
+    "gradients/tonal-05.svg": "0b955fba27d51ee75fd58a0a5660259b34632926727c17a7c3950196f1dd01ff",
+    "gradients/tonal-06.svg": "ff7803588fe87bb2d97fd8034595dd739de92cc230212085c734dd31648dc726",
+    "origin/diverging.pal": "261d9798e1eed4d0e8a8e8cb465d9114e8226a700042da47c2f9c484d3288eea",
+    "origin/main-colors.pal": "4b88b1510a7e9dd2b163f2ab7da0490a2effc9380f54cfa020f86aa9dee7f086",
+    "origin/sequential-multihue.pal": "39b5325f5190ac578d39e139d7db1d0be7e67d296cab1b5fad784bf525dafb09",
+    "origin/tonal-01.pal": "b3c43b5fdbec81f5026c4c7786b11e8fb0d3a949f1140a4df643b7b00d4e4827",
+    "origin/tonal-02.pal": "8cc999dcc662721bc0d0cc8d708ccded31576253a770f2324999e724259af6da",
+    "origin/tonal-03.pal": "c4277a1bdc10860411ab9be257e81e72e5b14605206db49530cb98b84e780da7",
+    "origin/tonal-04.pal": "0a58a3991c20895f6cfcfccb039e2e008e04181bb91920fe941ceaca0c4c6521",
+    "origin/tonal-05.pal": "0ce85cee8238fd4c35b2eda04f4cbcf169dcfc8bbdd911bbed525ef067f4995d",
+    "origin/tonal-06.pal": "7b10d27d8ffd8efaf04d4b11d590dea989abe81517a17c0953a20069be30fd75",
+    "palette-workbench.html": "ced89e836b9bb8eac5520be36009705597b4e5b0fb67aa4cb117ecd715d7aa8d",
+    "palette.json": "2ee39b0c9f9fe25d8294f34fa70e89f7e5b694c4286155eaf5cc5c31125019ac",
+    "powerpoint/palette-toolkit.pptx": "ca8cfa6e584eacf6b407dc7c339c009ac4892a706303302feec3e3d197da18af",
+    "powerpoint/palette.thmx": "7092355e3aeb2cefa55517c9d722199ed15049183c976d85be126364fd1e0c2c",
+    "powerpoint/theme-colors.xml": "780608022b4581d4ec4163b560d906a7597ca112a0342e8dcff802584cc7d0ba"
+  }
+}

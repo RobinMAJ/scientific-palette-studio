@@ -1,0 +1,14 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import vm from 'node:vm';
+const payload=await fs.readFile(new URL('../dist/assets/palette-data.js',import.meta.url),'utf8');
+const engine=(await fs.readFile(new URL('../dist/assets/palette-engine.js',import.meta.url),'utf8')).split("$('download-kit').onclick")[0];
+const context=vm.createContext({window:{},structuredClone,TextEncoder,Blob,Uint8Array,DataView,Math,JSON,Array,Object,Number,Map});
+new vm.Script(payload+engine+'\nglobalThis.h={gradients,pal,palette256,sourceJSON,zip,lab,cardSVG};').runInContext(context);
+const data=context.window.PALETTE_PAYLOAD,h=context.h,colors=data.palette.main.map(c=>c.hex);
+test('all eight original native swatch slots are available',()=>{let s=data.pptxParts['ppt/slides/slide1.xml'];assert.ok(s.includes('MAIN-7'));assert.ok(s.includes('HEX-7'));assert.ok(data.themeParts['theme/theme1.xml'])});
+test('exact tonal anchors and continuous lightness',()=>{let gs=h.gradients(colors);assert.equal(gs.length,8);gs.slice(0,6).forEach((g,i)=>assert.equal(g.colors[128],colors[i]));assert.ok(gs.at(-2).lightness.monotonic_with_tolerance);assert.ok(gs.at(-1).lightness.monotonic_with_tolerance);assert.equal(gs.at(-1).colors.length,257)});
+test('edited primary color changes gradient anchor',()=>{let a=[...colors];a[0]='#AA3344';assert.equal(h.gradients(a)[0].colors[128],a[0])});
+test('categorical and continuous PAL records',()=>{let a=h.pal(colors).trim().split('\r\n');assert.equal(a[0],'JASC-PAL');assert.equal(a[1],'0100');assert.equal(+a[2],6);assert.equal(a.length,9);let g=h.gradients(colors).at(-1);assert.equal(h.palette256(g).length,256)});
+test('native export payload remains original and ZIP bytes are valid',async()=>{const blob=h.zip({'data.txt':'hello'}),buffer=new Uint8Array(await blob.arrayBuffer());assert.equal(new DataView(buffer.buffer).getUint32(0,true),0x04034b50);assert.ok(h.cardSVG().includes('<linearGradient'));assert.equal(JSON.parse(h.sourceJSON()).powerpoint.accent_colors.length,6)});

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Turn paper PDFs, images and pasted screenshots into scientific palettes, gradients, editable PowerPoint tools and Origin presets. Private, browser-local processing.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; img-src 'self' blob: data:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="theme-color" content="#F6F8FC"><title>Scientific Palette Studio · Paper to palette</title>
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/engine.css"><link rel="stylesheet" href="assets/site.css">
+</head><body>
+<nav class="topbar"><a href="#" class="wordmark"><span class="logo" aria-hidden="true"><i></i><i></i><i></i></span>Scientific Palette Studio</a><a href="#how">How it works</a></nav>
+<main>
+<div class="hero"><div><p class="eyebrow">A color bench for research figures</p><h1>From paper to palette.</h1><p class="lead">Find the colors in a figure. Make them work across your plots, heatmaps and slides.</p></div><div class="privacy"><span aria-hidden="true">◈</span><div><strong>Your files stay with you.</strong><br>Processed in your browser. No account required.</div></div></div>
+<div class="workspace">
+<aside class="input-panel">
+<h2><span class="step">1</span> Bring a reference</h2>
+<label class="dropzone" id="dropzone" for="file-input" tabindex="0"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 32v8h28v-8M24 32V8m-8 8 8-8 8 8"/></svg><strong>Choose a PDF or image</strong><span>or drop a file here</span><small>PDF · PNG · JPG · WebP · up to 30 MB</small></label>
+<input id="file-input" type="file" accept="application/pdf,image/png,image/jpeg,image/webp" class="visually-hidden">
+<p class="paste-hint">Have a screenshot? Press <kbd>⌘</kbd> / <kbd>Ctrl</kbd> + <kbd>V</kbd> anywhere on this page.</p>
+<div class="sample-row"><span>Just looking?</span><button id="try-sample">Try a sample →</button></div>
+<div id="source-controls" hidden>
+<div class="file-info"><strong id="file-name"></strong><button id="clear-source" class="text-button" aria-label="Remove source">Remove</button></div>
+<div id="pdf-controls" hidden class="page-controls"><label>PDF page <input id="pdf-page" type="number" min="1" value="1"></label><span id="pdf-total"></span><button id="show-page">Go</button></div>
+<hr><h2><span class="step">2</span> Refine the colors</h2>
+<p class="hint">Drag over the preview to isolate a figure. Color is sampled from the selected area.</p>
+<label class="field">Main colors <select id="color-count"><option>2</option><option>3</option><option>4</option><option>5</option><option selected>6</option><option>7</option><option>8</option></select></label>
+<label class="check"><input type="checkbox" id="include-neutrals"> Include gray / neutral colors</label>
+<button class="primary wide" id="extract">Extract colors</button>
+<p class="hint" id="crop-summary">Using the whole image.</p>
+<button id="clear-crop" class="text-button" hidden>Clear selection</button>
+</div>
+<details class="manual"><summary>Or start with your own HEX colors</summary><label for="manual-colors" class="hint">2–8 distinct colors, separated by spaces</label><textarea id="manual-colors" rows="3" placeholder="#28669B #DB7853 #439B91"></textarea><button id="use-manual">Use these colors</button></details>
+</aside>
+<div class="source-panel"><div class="source-head"><strong>Source preview</strong><span id="source-label">Choose a reference to begin</span></div>
+<div class="preview-stage" id="preview-stage"><canvas id="source-canvas" hidden></canvas><div id="crop-overlay" hidden></div><div class="empty-preview" id="empty-preview"><div class="preview-paper" aria-hidden="true"><div class="paper-line"></div><div class="paper-line short"></div><svg viewBox="0 0 300 180"><path d="M25 20v125h250" stroke="#BEC9D6" fill="none"/><path d="M30 126 65 112 105 115 148 77 190 68 235 35 268 42" stroke="#28669B" fill="none" stroke-width="5"/><path d="M30 118 65 96 105 91 148 96 190 58 235 62 268 24" stroke="#DB7853" fill="none" stroke-width="5"/><path d="M30 136 65 130 105 105 148 113 190 93 235 74 268 88" stroke="#439B91" fill="none" stroke-width="5"/></svg><div class="mini-swatches"><i></i><i></i><i></i><i></i><i></i><i></i></div></div><strong>Your figure is the starting point.</strong><p>Select a PDF, an image, or paste a screenshot.<br>Then turn its colors into a reusable toolkit.</p><small>Illustration above is an original sample, not an extraction.</small></div></div>
+<div id="task-status" role="status" aria-live="polite">Ready when you are.</div>
+</div></div>
+<div id="results" hidden>
+<header class="results-head"><div><p class="eyebrow">Your palette</p><h2 id="title"></h2><p id="basis" class="hint"></p></div><div class="actions"><button class="primary" id="download-kit">Download complete kit ↓</button><button id="download-pptx">PowerPoint toolkit</button><button id="download-thmx">PowerPoint theme</button><button id="download-origin">Origin presets</button><button id="download-png">Color card PNG</button><button id="download-svg">Color card SVG</button><button id="download-csv">HEX / RGB CSV</button><button id="reset">Reset colors</button></div></header><div id="status" role="status" aria-live="polite"></div>
+<section><div class="section-head"><div><h2>Main colors</h2><p class="hint">Click a swatch to edit. Copy HEX or RGB for a custom fill.</p></div><label class="hint">Preview <select id="vision"><option value="color">Full color</option><option value="gray">Grayscale</option></select></label></div><div class="colors" id="colors"></div></section>
+<section><h2>Tints, shades & gradients</h2><p class="hint">Each main color is an exact 50% anchor. Click a discrete sample to copy its HEX value; click a gradient to copy its stops.</p><div id="tonal"></div></section>
+<section class="two-col"><div class="scale-block"><h2>Sequential</h2><p class="hint">For ordered quantities. Lightness decreases from low to high.</p><div class="scale" id="sequential"></div><div class="scale-labels"><span>Low / light</span><span>High / dark</span></div><div class="download-menu"><button id="seq-pal">Origin .pal</button><button id="seq-svg">Gradient SVG</button></div></div><div class="scale-block"><h2>Diverging</h2><p class="hint">For data around a meaningful center, such as signed differences.</p><div class="scale" id="diverging"></div><div class="scale-labels"><span>Low</span><span>Center</span><span>High</span></div><div class="download-menu"><button id="div-pal">Origin .pal</button><button id="div-svg">Gradient SVG</button></div></div></section>
+<section><h2>Figure preview</h2><p class="hint">Illustrative data only. Check the palette at the size of your final figure.</p><div class="two-col"><div class="preview"><div class="controls"><strong>Line and marker styles</strong></div><div id="line-preview"></div><div id="legend" class="legend"></div></div><div class="preview"><div class="controls"><label>Heatmap <select id="map"><option value="seq">Sequential</option><option value="div">Diverging</option></select></label></div><div id="heat-preview"></div></div></div></section>
+<section><h2>Readability checks</h2><div class="audit"><div><h3>Contrast against white</h3><div id="contrast"></div><p class="note">3:1 is a useful review target for graphical elements; 4.5:1 is the WCAG minimum for ordinary text. These diagnostics do not certify an entire figure.</p></div><div><h3>Series separation</h3><ul id="warnings"></ul><p class="note">Grayscale preview is not a simulation of color vision deficiency. Use markers, line styles and labels; no colorblind-safe guarantee is made.</p></div></div></section>
+<section><h2>Use the exports</h2><div class="two-col"><div class="help"><strong>PowerPoint</strong><br>Open the editable toolkit and copy a swatch or gradient. Format Painter transfers the fill to your own shapes.<br>For the theme: Design → Themes → Browse for Themes → palette.thmx. Office has six accent slots; all main colors remain in the toolkit.</div><div class="help"><strong>Origin</strong><br>Tools → Color Manager → Import from Files. Import main-colors.pal for categorical series, or a 256-color .pal for continuous colormaps.<br>Set the actual data limits and the diverging midpoint in Origin; the palette file contains RGB values only.</div></div></section>
+
+</div>
+<section id="how" class="how"><h2>A figure’s colors, ready for your tools.</h2><div class="how-grid"><div><span>01</span><h3>Pick the figure</h3><p>Upload a paper or an image, or paste a screenshot. Choose a PDF page and crop to the plot you like.</p></div><div><span>02</span><h3>Shape your palette</h3><p>Keep the main colors, edit individual swatches and preview lines or heatmaps. Tints, shades and continuous scales update together.</p></div><div><span>03</span><h3>Take it to your work</h3><p>Download editable PPTX and THMX files, Origin PAL presets, PNG/SVG cards and color values. The complete kit keeps everything together.</p></div></div></section>
+<footer><div><strong>Scientific Palette Studio</strong><p>Created by Jiabin Ma · Original color and export tools.</p></div><div>Browser-local processing · No source file uploads<br><a href="NOTICE.txt">Licenses & limitations</a></div></footer>
+</main>
+<script src="assets/palette-data.js"></script><script src="assets/palette-engine.js"></script><script src="assets/site.js"></script>
+</body></html>

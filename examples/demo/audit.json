@@ -1,0 +1,143 @@
+{
+  "background": "#FFFFFF",
+  "background_contrast": [
+    6.062,
+    3.078,
+    3.314,
+    3.962,
+    2.2,
+    4.055
+  ],
+  "pairwise": [
+    {
+      "colors": [
+        1,
+        2
+      ],
+      "oklab_distance": 0.2945,
+      "lightness_difference": 0.1798
+    },
+    {
+      "colors": [
+        1,
+        3
+      ],
+      "oklab_distance": 0.1701,
+      "lightness_difference": 0.1369
+    },
+    {
+      "colors": [
+        1,
+        4
+      ],
+      "oklab_distance": 0.1498,
+      "lightness_difference": 0.1116
+    },
+    {
+      "colors": [
+        1,
+        5
+      ],
+      "oklab_distance": 0.3447,
+      "lightness_difference": 0.2583
+    },
+    {
+      "colors": [
+        1,
+        6
+      ],
+      "oklab_distance": 0.2159,
+      "lightness_difference": 0.1121
+    },
+    {
+      "colors": [
+        2,
+        3
+      ],
+      "oklab_distance": 0.2138,
+      "lightness_difference": 0.0429
+    },
+    {
+      "colors": [
+        2,
+        4
+      ],
+      "oklab_distance": 0.1752,
+      "lightness_difference": 0.0682
+    },
+    {
+      "colors": [
+        2,
+        5
+      ],
+      "oklab_distance": 0.1297,
+      "lightness_difference": 0.0785
+    },
+    {
+      "colors": [
+        2,
+        6
+      ],
+      "oklab_distance": 0.1107,
+      "lightness_difference": 0.0677
+    },
+    {
+      "colors": [
+        3,
+        4
+      ],
+      "oklab_distance": 0.1543,
+      "lightness_difference": 0.0253
+    },
+    {
+      "colors": [
+        3,
+        5
+      ],
+      "oklab_distance": 0.2019,
+      "lightness_difference": 0.1214
+    },
+    {
+      "colors": [
+        3,
+        6
+      ],
+      "oklab_distance": 0.2026,
+      "lightness_difference": 0.0248
+    },
+    {
+      "colors": [
+        4,
+        5
+      ],
+      "oklab_distance": 0.2473,
+      "lightness_difference": 0.1467
+    },
+    {
+      "colors": [
+        4,
+        6
+      ],
+      "oklab_distance": 0.0913,
+      "lightness_difference": 0.0004
+    },
+    {
+      "colors": [
+        5,
+        6
+      ],
+      "oklab_distance": 0.2216,
+      "lightness_difference": 0.1462
+    }
+  ],
+  "warnings": [
+    "Colors 2 and 3 may merge in grayscale; add markers or line styles.",
+    "Colors 3 and 4 may merge in grayscale; add markers or line styles.",
+    "Colors 3 and 6 may merge in grayscale; add markers or line styles.",
+    "Colors 4 and 6 may merge in grayscale; add markers or line styles.",
+    "Color 5 has only 2.2:1 contrast on the background; thin lines need review."
+  ],
+  "threshold_basis": "Heuristics, not an accessibility certification",
+  "color_vision_deficiency": "Not simulated; no colorblind-safe guarantee",
+  "text": "Use dark text on white; choose black/white swatch labels by contrast."
+}

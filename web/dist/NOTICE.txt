@@ -1,0 +1,7 @@
+Scientific Palette Studio
+Original site, palette code and original native presentation template: Copyright (c) 2026 Jiabin Ma. MIT License; see /LICENSE.txt.
+PDF.js 6.4.299: Mozilla and contributors. Apache License 2.0 and bundled third-party notices; see /assets/pdfjs/LICENSE. Original distribution: https://registry.npmjs.org/pdfjs-dist/-/pdfjs-dist-6.4.299.tgz
+No source papers, journal figures, screenshots, article metadata, or personal API keys are packaged with the website. The initial illustration and interactive sample are original demonstration graphics.
+Uploaded files stay in browser memory; this application does not transmit them. Only local rendering and color sampling are used, without document scripting.
+Main colors are representatives of rendered sRGB pixels. Derived gradients are not exact source-document colormaps. Readability checks are heuristics, not an accessibility certification or a color-vision simulation.
+Office themes have six accent slots. The toolkit retains up to eight main colors. Origin PAL files use the documented JASC-PAL format; set data limits and diverging center in Origin. Native Origin import is not runtime-tested here.

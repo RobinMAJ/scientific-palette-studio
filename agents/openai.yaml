@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scientific Palette Studio"
+  short_description: "Paper colors, gradients, PowerPoint and Origin palettes"
+  default_prompt: "Use $scientific-palette-studio to extract paper colors and create gradients, a PowerPoint theme, and Origin palettes."
