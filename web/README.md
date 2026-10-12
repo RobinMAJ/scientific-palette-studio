@@ -1,6 +1,6 @@
 # Scientific Palette Studio — Web
 
-**[Use the public app](https://scientific-palette-studio.majiabin7.chatgpt.site)** · **[Skill and complete source repository](https://github.com/RobinMAJ/scientific-palette-studio)**
+**[Use the public app](https://scientific-palette.tailee7aa5.ts.net)** · **[Skill and complete source repository](https://github.com/RobinMAJ/scientific-palette-studio)**
 
 This is the complete static, browser-local implementation. Visitors upload a paper PDF, PNG/JPG/WebP image or paste a clipboard screenshot, select a page/crop, extract 2–8 colors and edit the resulting palette. It generates main colors, tints, shades, sequential and diverging gradients.
 

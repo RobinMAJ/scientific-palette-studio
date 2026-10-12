@@ -4,7 +4,7 @@
 
 Scientific Palette Studio includes a Codex Skill, a deterministic local command-line tool, and a complete browser-based website. Extract main colors from a supplied PDF or image, generate tints, shades and gradients, and reuse the same colors in PowerPoint, Origin and other plotting tools.
 
-**[Open the public website](https://scientific-palette-studio.majiabin7.chatgpt.site)** · **[Download a release](https://github.com/RobinMAJ/scientific-palette-studio/releases/latest)** · **[Report an issue](https://github.com/RobinMAJ/scientific-palette-studio/issues)**
+**[Open the public website](https://scientific-palette.tailee7aa5.ts.net)** · **[Download a release](https://github.com/RobinMAJ/scientific-palette-studio/releases/latest)** · **[Report an issue](https://github.com/RobinMAJ/scientific-palette-studio/issues)**
 
 ![The public web workbench showing an original synthetic reference palette](docs/assets/web-preview.jpg)
 
@@ -24,14 +24,14 @@ Main colors and generated gradients keep separate provenance. A source with fewe
 
 | Mode | Best for | Requirements |
 | --- | --- | --- |
-| [Public website](https://scientific-palette-studio.majiabin7.chatgpt.site) | Uploads, pasted screenshots, cropping and immediate downloads | A recent browser; no account or installation |
+| [Public website](https://scientific-palette.tailee7aa5.ts.net) | Uploads, pasted screenshots, cropping and immediate downloads | A recent browser; no account or installation |
 | Codex Skill | Asking an assistant to inspect a figure and create a complete kit | Codex or a compatible Skill host, Python dependencies, Poppler for PDFs |
 | Local CLI | Reproducible batch work, source/output hashes and offline bundles | Python 3.10+, NumPy, Pillow; Poppler for PDFs |
 | Self-hosted website | Your own public/private static deployment | Any static HTTP(S) host; the app needs no backend |
 
 ## Use the website
 
-1. Open **[Scientific Palette Studio](https://scientific-palette-studio.majiabin7.chatgpt.site)**.
+1. Open **[Scientific Palette Studio](https://scientific-palette.tailee7aa5.ts.net)**.
 2. Upload a PDF, PNG, JPG or WebP, or paste a screenshot with **Ctrl+V / Cmd+V**. You can also start with 2–8 HEX colors or try the clearly labeled original sample.
 3. For a PDF, the app initially checks the first six pages and selects the page with the largest retained colored sample. Choose any available page if your figure is elsewhere.
 4. Drag over the preview to isolate a figure. Select the requested number of main colors, optionally include neutrals, then click **Extract colors**.
@@ -39,6 +39,8 @@ Main colors and generated gradients keep separate provenance. A source with fewe
 6. Download the complete kit, or choose an individual export from the **Downloads** tab, grouped by PowerPoint, Origin and color cards/values.
 
 The result tabs support arrow keys and Home/End. See the [UI review and screenshots](web/UI-REVIEW.md) for the current interface and tested workflow.
+
+The public app is hosted on a NAS through a dedicated Tailscale Funnel HTTPS endpoint. It remains open to anonymous visitors; no Tailscale client or account is required to use it.
 
 **Privacy:** the application processes file bytes in the visitor's browser; it does not post papers, images or screenshots to a server. App assets are fetched from the static host. Hosting providers can receive ordinary page and asset requests. There is no application account, document storage or model service.
 
