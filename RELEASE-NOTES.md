@@ -9,7 +9,7 @@ A redesigned browser workspace for moving from a reference figure to reusable re
 - Responsive swatches, full-width mobile shade samples and stacked export groups.
 - English documentation, design rationale, current screenshots and bounded validation evidence.
 
-Use the public app: https://scientific-palette-studio.majiabin7.chatgpt.site
+Use the public app: https://scientific-palette.tailee7aa5.ts.net/
 
 The extraction mathematics, local CLI and native export engine are unchanged. The existing 11 Node checks passed; current browser tests covered image/PDF extraction, cropping, editing, tabs, grayscale preview, responsive reflow and downloaded package consistency. Native Origin/PowerPoint application sessions and full accessibility certification are not claimed.
 
@@ -27,7 +27,7 @@ Initial public release of the complete Codex Skill and browser-local website for
 - Use the local deterministic CLI or deploy the complete static app from `web/dist/`.
 - English installation, usage, self-hosting, extension, licensing and validation documentation included.
 
-Try the public app: https://scientific-palette-studio.majiabin7.chatgpt.site
+Try the public app: https://scientific-palette.tailee7aa5.ts.net/
 
 Technical validation includes 20 Python checks and 11 Node checks, synthetic PDF/image/browser workflows and export-content verification. Native Origin import and native PowerPoint theme application remain untested; readability diagnostics are heuristics.
 

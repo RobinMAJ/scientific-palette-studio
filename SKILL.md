@@ -9,7 +9,7 @@ Turn supplied figure colors into a reusable palette for scientific figures and s
 
 ## Browser option
 
-For interactive uploads, clipboard screenshots and downloadable files without installing this Skill, use [the public web workbench](https://scientific-palette-studio.majiabin7.chatgpt.site). Source files are processed in the visitor's browser. The website implementation lives in `web/`; read [web/README.md](web/README.md) only when developing or self-hosting it. Use the deterministic local CLI for scripted extraction, hashes and offline bundles.
+For interactive uploads, clipboard screenshots and downloadable files without installing this Skill, use [the public web workbench](https://scientific-palette.tailee7aa5.ts.net/). Source files are processed in the visitor's browser. The website implementation lives in `web/`; read [web/README.md](web/README.md) only when developing or self-hosting it. Use the deterministic local CLI for scripted extraction, hashes and offline bundles.
 
 ## Inspect the source
 
