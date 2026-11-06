@@ -53,7 +53,30 @@ function recolorTheme(data){let d=parseXML(data),old=d.getElementsByTagNameNS(A,
 function themeParts(){let out={...payload.themeParts};out['theme/theme1.xml']=recolorTheme(out['theme/theme1.xml']);return out}
 function nativeFill(d,shape,color,gradient){let props=shape.getElementsByTagNameNS(P,'spPr')[0];for(let x of Array.from(props.children))if(['solidFill','gradFill','noFill','pattFill','blipFill'].includes(x.localName))x.remove();let fill=xmlNode(d,A,gradient?'a:gradFill':'a:solidFill',gradient?{rotWithShape:'1'}:{});if(gradient){let gs=xmlNode(d,A,'a:gsLst');for(let i=0;i<=256;i+=16){let stop=xmlNode(d,A,'a:gs',{pos:Math.round(i/256*100000)});stop.append(xmlNode(d,A,'a:srgbClr',{val:gradient.colors[i].slice(1)}));gs.append(stop)}fill.append(gs,xmlNode(d,A,'a:lin',{ang:'0',scaled:'1'}))}else fill.append(xmlNode(d,A,'a:srgbClr',{val:color.slice(1)}));let before=Array.from(props.children).find(x=>['ln','effectLst'].includes(x.localName));props.insertBefore(fill,before||null)}
 function nativeText(shape,text){let ts=shape.getElementsByTagNameNS(A,'t');if(ts.length){ts[0].textContent=text;for(let i=1;i<ts.length;i++)ts[i].textContent=''}}
-function pptxParts(){let out={...payload.pptxParts},main=palette.main.map(x=>x.hex);for(let [name,data]of Object.entries(out)){if(/^ppt\/theme\/theme\d+\.xml$/.test(name))out[name]=recolorTheme(data);if(!/^ppt\/slides\/slide\d+\.xml$/.test(name))continue;let d=parseXML(data);for(let sh of Array.from(d.getElementsByTagNameNS(P,'sp'))){let prop=sh.getElementsByTagNameNS(P,'cNvPr')[0];if(!prop)continue;let tag=prop.getAttribute('name'),match=/^(MAIN|HEX|RGB|TONAL|TONE_LABEL|SHADE)-(\d+)(?:-(\d+))?$/.exec(tag);if(match){let index=+match[2],c=main[index];if(!c){sh.remove();continue}if(match[1]==='MAIN')nativeFill(d,sh,c);if(match[1]==='HEX'||match[1]==='TONE_LABEL')nativeText(sh,`${String(index+1).padStart(2,'0')}  ${c}`);if(match[1]==='RGB')nativeText(sh,'RGB '+rgb(c).join(' / '));if(match[1]==='TONAL')nativeFill(d,sh,null,palette.gradients[index]);if(match[1]==='SHADE')nativeFill(d,sh,palette.gradients[index].colors[Math.round(+match[3]/6*256)])}else if(tag==='PALETTE_TITLE')nativeText(sh,palette.title);else if(tag==='PALETTE_BASIS')nativeText(sh,`${main.length} main colors · ${palette.provenance.basis} · sRGB`);else if(tag==='SEQUENTIAL')nativeFill(d,sh,null,palette.gradients.at(-2));else if(tag==='DIVERGING')nativeFill(d,sh,null,palette.gradients.at(-1))}out[name]=xml(d)}return out}
+// PowerPoint resolves a slide's theme through its layout and slide master.
+function recolorPresentationThemes(parts) {
+  const types = parseXML(parts['[Content_Types].xml']);
+  const themeType = 'application/vnd.openxmlformats-officedocument.theme+xml';
+  const themes = Array.from(types.getElementsByTagNameNS(
+    'http://schemas.openxmlformats.org/package/2006/content-types', 'Override'
+  )).filter(entry => entry.getAttribute('ContentType') === themeType);
+  if (!themes.length) throw new Error('Presentation has no Office theme.');
+  for (const entry of themes) {
+    const name = entry.getAttribute('PartName').slice(1);
+    parts[name] = recolorTheme(parts[name]);
+  }
+}
+function unlockSlideObjects(doc) {
+  for (const name of ['spLocks', 'grpSpLocks', 'cxnSpLocks', 'picLocks']) {
+    for (const lock of doc.getElementsByTagNameNS(A, name)) {
+      for (const property of ['noGrp', 'noUngrp', 'noSelect', 'noMove',
+        'noResize', 'noRot', 'noEditPoints', 'noTextEdit']) {
+        lock.removeAttribute(property);
+      }
+    }
+  }
+}
+function pptxParts(){let out={...payload.pptxParts},main=palette.main.map(x=>x.hex);recolorPresentationThemes(out);for(let [name,data]of Object.entries(out)){if(!/^ppt\/slides\/slide\d+\.xml$/.test(name))continue;let d=parseXML(data);unlockSlideObjects(d);for(let sh of Array.from(d.getElementsByTagNameNS(P,'sp'))){let prop=sh.getElementsByTagNameNS(P,'cNvPr')[0];if(!prop)continue;let tag=prop.getAttribute('name'),match=/^(MAIN|HEX|RGB|TONAL|TONE_LABEL|SHADE)-(\d+)(?:-(\d+))?$/.exec(tag);if(match){let index=+match[2],c=main[index];if(!c){sh.remove();continue}if(match[1]==='MAIN')nativeFill(d,sh,c);if(match[1]==='HEX'||match[1]==='TONE_LABEL')nativeText(sh,`${String(index+1).padStart(2,'0')}  ${c}`);if(match[1]==='RGB')nativeText(sh,'RGB '+rgb(c).join(' / '));if(match[1]==='TONAL')nativeFill(d,sh,null,palette.gradients[index]);if(match[1]==='SHADE')nativeFill(d,sh,palette.gradients[index].colors[Math.round(+match[3]/6*256)])}else if(tag==='PALETTE_TITLE')nativeText(sh,palette.title);else if(tag==='PALETTE_BASIS')nativeText(sh,`${main.length} main colors · ${palette.provenance.basis} · sRGB`);else if(tag==='SEQUENTIAL')nativeFill(d,sh,null,palette.gradients.at(-2));else if(tag==='DIVERGING')nativeFill(d,sh,null,palette.gradients.at(-1))}out[name]=xml(d)}return out}
 function sourceJSON(){let p=structuredClone(palette);p.powerpoint={accent_colors:Array.from({length:6},(_,i)=>p.main[i%p.main.length].hex),extra_colors:p.main.slice(6).map(c=>c.hex),mapping:'First six main colors become Accent 1-6; additional colors stay in the toolkit.'};return JSON.stringify(p,null,2)+'\n'}
 function originParts(){let out={'origin/main-colors.pal':pal(palette.main.map(c=>c.hex))};for(let g of palette.gradients)out[`origin/${g.id}.pal`]=pal(palette256(g));return out}
 function cardSVG(){let w=1400,h=360+palette.main.length*70,esc=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));let s=`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><rect width="100%" height="100%" fill="#FFFFFF"/><text x="50" y="60" font-family="Arial" font-size="30" fill="#182533">${esc(palette.title)}</text>`;let cw=1300/palette.main.length;palette.main.forEach((c,i)=>{s+=`<rect x="${50+i*cw}" y="90" width="${cw-10}" height="70" fill="${c.hex}"/><text x="${50+i*cw}" y="192" font-family="Arial" font-size="20" fill="#182533">${c.hex}</text>`});for(let [i,g]of palette.gradients.entries()){let y=235+i*70,id='g'+i;s+=`<defs><linearGradient id="${id}">${g.colors.map((c,j)=>`<stop offset="${j/256*100}%" stop-color="${c}"/>`).join('')}</linearGradient></defs><text x="50" y="${y+25}" font-family="Arial" font-size="18" fill="#182533">${esc(g.id)}</text><rect x="300" y="${y}" width="1040" height="36" fill="url(#${id})"/>`}return s+'</svg>'}

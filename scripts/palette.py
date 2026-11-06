@@ -480,12 +480,25 @@ def pptx_parts(palette):
     with zipfile.ZipFile(ROOT/"assets/palette-template.pptx") as z:
         parts = {n: z.read(n) for n in z.namelist() if not n.endswith("/")}
     main = [c["hex"] for c in palette["main"]]
+    # Slide and notes masters can reference themes outside the top-level theme directory.
+    types = ET.fromstring(parts["[Content_Types].xml"])
+    overrides = types.findall("{http://schemas.openxmlformats.org/package/2006/content-types}Override")
+    theme_type = "application/vnd.openxmlformats-officedocument.theme+xml"
+    themes = [entry.attrib["PartName"].lstrip("/") for entry in overrides
+              if entry.get("ContentType") == theme_type]
+    if not themes:
+        raise ValueError("Presentation has no Office theme.")
+    for name in themes:
+        parts[name] = themed_xml(parts[name], palette)
     for name in list(parts):
-        if re.fullmatch(r"ppt/theme/theme\d+.xml", name):
-            parts[name] = themed_xml(parts[name], palette)
         if not re.fullmatch(r"ppt/slides/slide\d+.xml", name):
             continue
         root = ET.fromstring(parts[name])
+        for tag in ("spLocks", "grpSpLocks", "cxnSpLocks", "picLocks"):
+            for lock in root.iter(f"{{{A}}}{tag}"):
+                for prop in ("noGrp", "noUngrp", "noSelect", "noMove", "noResize", "noRot",
+                             "noEditPoints", "noTextEdit"):
+                    lock.attrib.pop(prop, None)
         tree = root.find("p:cSld/p:spTree", NS)
         for shape in list(tree):
             prop = shape.find("p:nvSpPr/p:cNvPr", NS)

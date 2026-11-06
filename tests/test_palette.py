@@ -122,6 +122,26 @@ class PaletteTests(unittest.TestCase):
         self.assertIn(b"28669B",parts["ppt/slides/slide1.xml"])
         self.assertNotIn(b"MAIN-6",parts["ppt/slides/slide1.xml"])
 
+    def test_toolkit_master_themes_and_edit_locks(self):
+        colors = ["#3167B1", *palette.DEMO_COLORS[1:]]
+        parts = palette.pptx_parts(palette.build_palette(colors, "Updated accents", {}))
+        theme_names = ("ppt/theme/theme1.xml", "ppt/slideMasters/theme/theme2.xml",
+                       "ppt/notesMasters/theme/theme3.xml")
+        for name in theme_names:
+            with self.subTest(theme=name):
+                theme = ET.fromstring(parts[name])
+                for index, color in enumerate(colors, 1):
+                    accent = theme.find(f".//a:clrScheme/a:accent{index}/a:srgbClr", palette.NS)
+                    self.assertEqual(color[1:], accent.get("val"))
+        for name, data in parts.items():
+            if name.startswith("ppt/slides/slide") and name.endswith(".xml"):
+                slide = ET.fromstring(data)
+                for tag in ("spLocks", "grpSpLocks", "cxnSpLocks", "picLocks"):
+                    for lock in slide.iter(f"{{{palette.A}}}{tag}"):
+                        for prop in ("noGrp", "noUngrp", "noSelect", "noMove", "noResize", "noRot",
+                                     "noEditPoints", "noTextEdit"):
+                            self.assertNotIn(prop, lock.attrib)
+
     def test_theme_relationships(self):
         parts=palette.theme_parts(self.p)
         for data in parts.values():ET.fromstring(data)
